@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import oauth from './OAuth/utils';
-import ttv from './utils';
+import ttv from './ttvUtils';
+import dapp from './web3Utils';
 import './resources/styles.css';
 
 
@@ -8,50 +9,52 @@ import Config from './Config/Config';
 import App from "./App/App";
 
 
-function TTV(props) {
+function TTVDapp(props) {
+    var web3Compatible = (dapp.provider() !== false);
+    const [client, setClient] = useState(dapp.defaultState);
+
+
+    useEffect(() => {
+        if (window.ethereum) {
+            dapp.reloadAsNecessary();
+            if (!dapp.connected() && web3Compatible) dapp.initialize(setClient);
+        }
+    }, [client]);
+
+
     var twitch = window.Twitch ? window.Twitch.ext : null;
     const [loading, setLoading] = useState(true);
     const [auth, setAuth] = useState(oauth.defaultState);
     const [theme, setTheme] = useState('light');
     const themeClass = (theme === 'light') ? ('Ext-light') : ('Ext-dark');
-    
-    // ONLY APP
     const [visible, setVisible] = useState(true);
-    if (props.type === "Config") {
-        useEffect(() => {
-            if (twitch) {
-                ttv.authorize(twitch, setAuth, loading, setLoading);
-                ttv.updateContext(twitch, setTheme);
-            }
-        }, [loading]);
 
-    } else if (props.type === "LiveConfig") {
-        useEffect(() => {
-            if (twitch) {
-                ttv.authorize(twitch, setAuth, loading, setLoading);
-                ttv.updateContext(twitch, setTheme);
+    
+    useEffect(() => {
+        if (twitch) {
+            ttv.authorize(twitch, setAuth, loading, setLoading);
+            ttv.updateContext(twitch, setTheme);
+            if (props.type !== "Config") {
+                if (props.type !== "LiveConfig") ttv.updateVisibility(twitch, setVisible);
                 ttv.listen(twitch);
                 return ttv.unmount(twitch);
             }
-        }, [loading]);
+        }
+    }, [loading]);
 
+
+    if (twitch) {
+        twitch.log(`Returning ${props.type}`);
+        twitch.log(`Web3 Compatible: ${web3Compatible}`);
     } else {
-        useEffect(() => {
-            if (twitch){
-                ttv.authorize(twitch, setAuth, loading, setLoading);
-                ttv.updateContext(twitch, setTheme);
-                ttv.updateVisibility(twitch, setVisible);
-                ttv.listen(twitch);
-                return ttv.unmount(twitch);
-            }
-        }, [loading]);
+        console.log(`Returning ${props.type}`);
+        console.log(`Web3 Compatible: ${web3Compatible}`);
     }
-
-    if (twitch) twitch.log(`Returning ${props.type}`);
     switch (props.type) {
         case "Config":
             return(<Config 
                 type="static"
+                client={client}
                 themeClass={themeClass}
                 loading={loading}
                 auth={auth}
@@ -60,6 +63,7 @@ function TTV(props) {
         case "LiveConfig":
             return(<Config 
                 type="live"
+                client={client}
                 themeClass={themeClass}
                 loading={loading}
                 auth={auth}
@@ -67,6 +71,7 @@ function TTV(props) {
 
         case "Mobile":
             return(<App 
+                client={client}
                 themeClass={themeClass}
                 loading={loading}
                 visible={visible}
@@ -75,6 +80,7 @@ function TTV(props) {
 
         case "Panel":
             return(<App 
+                client={client}
                 themeClass={themeClass}
                 loading={loading}
                 visible={visible}
@@ -83,6 +89,7 @@ function TTV(props) {
 
         case "VideoComponent":
             return(<App 
+                client={client}
                 themeClass={themeClass}
                 loading={loading}
                 visible={visible}
@@ -91,6 +98,7 @@ function TTV(props) {
 
         case "VideoOverlay":
             return(<App 
+                client={client}
                 themeClass={themeClass}
                 loading={loading}
                 visible={visible}
@@ -103,4 +111,4 @@ function TTV(props) {
 }
 
 
-export default TTV;
+export default TTVDapp;

@@ -14,4 +14,4 @@ const presets = {
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<TTV type={presets.panel} />);
+root.render(<TTVDapp type={presets.panel} />);
