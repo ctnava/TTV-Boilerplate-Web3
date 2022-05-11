@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from 'react-dom/client';
-import TTV from "./components/TTV"
+import TTVDapp from "./components/TTVDapp"
 
 
 const presets = {
