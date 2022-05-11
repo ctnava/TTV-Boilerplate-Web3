@@ -4,10 +4,10 @@ const defaultState = {
 }
 
 
-async function initialize(setClient) {
+async function getClient() {
     const signer = await provider().getSigner();
     const chainId = parseInt(await window.ethereum.request({ method: 'eth_chainId' }), 16);
-    setClient({ chainId, signer });
+    return { signer, chainId };
 }
 
 
@@ -26,4 +26,4 @@ const provider = () => {
 const connected = (client) => {return (client !== defaultState)};
 
 
-module.exports = { defaultState, initialize, reloadAsNecessary, provider, connected }
+module.exports = { defaultState, getClient, reloadAsNecessary, provider, connected }

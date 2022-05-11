@@ -17,7 +17,11 @@ function TTVDapp(props) {
     useEffect(() => {
         if (window.ethereum) {
             dapp.reloadAsNecessary();
-            if (!dapp.connected()) dapp.initialize(setClient);
+            if (!dapp.connected()) new Promise (() => {
+                dapp.getClient()
+                .then(newClient => { setClient(newClient) })
+                .catch(e => { console.log(e) });
+            });
         }
     }, [client]);
 
