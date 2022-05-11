@@ -17,7 +17,7 @@ function TTVDapp(props) {
     useEffect(() => {
         if (window.ethereum) {
             dapp.reloadAsNecessary();
-            if (!dapp.connected() && web3Compatible) dapp.initialize(setClient);
+            if (!dapp.connected()) dapp.initialize(setClient);
         }
     }, [client]);
 
