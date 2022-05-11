@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import oauth from './OAuth/utils';
-import ttv from './ttvUtils';
-import dapp from './web3Utils';
+import ttv from './resources/ttvUtils';
+import dapp from './resources/web3Utils';
 import './resources/styles.css';
 
 

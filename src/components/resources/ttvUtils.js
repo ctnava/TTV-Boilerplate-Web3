@@ -1,6 +1,6 @@
 function authorize(twitch, setAuth, loading, setLoading) {
     twitch.onAuthorized((credentials)=>{
-        require("./OAuth/utils").setToken(credentials.token, credentials.userId, setAuth);
+        require("../OAuth/utils").setToken(credentials.token, credentials.userId, setAuth);
         if(loading){
             // additionalSetup();
             setLoading(false);
