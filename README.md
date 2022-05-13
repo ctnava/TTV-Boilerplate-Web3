@@ -6,8 +6,8 @@ I made this primarily out of frustration with how outdated the official boilerpl
 
 When you are ready to use this with Twitch's DevRig, run ```yarn host```.
 For local testing, use ```yarn start```.
-To pack up for deployment, use ```yarn build``` to populate "./dist".
-If you want to update the public folder without accidentally deleting your work, use ```yarn publish```
+To pack up for deployment, use ```yarn build``` to populate "./build".
+If you want to update the public folder without accidentally deleting your work, use ```yarn xfer```
 To launch the backend, use ```yarn api```.
 
 Tests are coming soon.
@@ -43,9 +43,9 @@ https://localhost:8080/
 ### Config
 ```
 "backendCommand": "node api/app.js",
-"backendFolderName": "temp",
+"backendFolderName": ANY,
 "frontendCommand": "yarn host",
-"frontendFolderName": "public",
+"frontendFolderName": ANY,
 "usingRandomFrontendHostingPort": false
 ```
 

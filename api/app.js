@@ -9,15 +9,16 @@ var url = (mode === "development") ? (
     devrig ? "https://localhost:8080" : "http://localhost:8080"
     ) : ("https://www.twitch.tv/");
 
-
-const pubDir = "./temp";
+const projectConfig = JSON.parse(fs.readFileSync("./Project.json"));
+const backendDir = projectConfig.backendFolderName;
+const pubDir = `./${backendDir}`;
 const pathToReports = pubDir + "/reports.json";
 if (!fs.existsSync(pubDir)) fs.mkdirSync(pubDir);
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({origin: url}));
-app.use('/temp', express.static('temp'));
+app.use(`/${backendDir}`, express.static(backendDir));
 const port = process.env.BACKEND_PORT;
 app.listen(port ,()=>{console.log("Server Started on Port:" + port)});
 app.get('/', (req, res)=>{res.json("Hello, welcome to my back end! Now git out.")});

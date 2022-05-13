@@ -8,9 +8,7 @@
     "xfer": "node utils/transfer.js",
     "build": "webpack --mode=production",
     "start": "webpack-dev-server --mode=development",
-    "host": "webpack-dev-server --mode=development --env devrig",
-    "watch": "webpack --watch",
-    "serve": "webpack serve --mode"
+    "host": "webpack-dev-server --mode=development --env devrig"
   },
   "author": "ctnava.github.io",
   "license": "MIT",
