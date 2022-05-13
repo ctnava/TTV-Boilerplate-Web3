@@ -31,12 +31,12 @@ module.exports = (env, argv) => {
   //       vendors:false,
   //       vendor: {
   //         chunks:'all',
-  //         test:/node_modules/,
+  //         test:/[\\/]node_modules[\\/]/,
   //         name:false
   //       }
   //     }
   //   }
-  // } else {config.devServer = server(__dirname, devrig)}
+  // }
   if (mode === "development") {config.devServer = server(__dirname, devrig)}
   return config;
 };
