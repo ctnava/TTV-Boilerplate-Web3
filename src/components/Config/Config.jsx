@@ -18,13 +18,13 @@ function Config(props) { diag(props.twitch, props.type, props.loading, props.aut
 
                 oauth.hasRole.moderator(props.auth) ? (
                     
-                    <RequestPanel auth={props.auth} />
+                    <RequestPanel auth={props.auth} client={props.client} />
                 
                 ) : (<p>User not Moderator</p>)
 
             ) : (<div>
                 <p>Configuration Not Required</p><hr/>
-                <OAuth auth={props.auth} />
+                <OAuth auth={props.auth} client={props.client} />
             </div>)
 
         ) : (<p>Loading...</p>) }

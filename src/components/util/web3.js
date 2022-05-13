@@ -1,3 +1,6 @@
+import { ethers } from "ethers";
+
+
 const defaultState = {
     signer: undefined,
     chainId: undefined
@@ -11,12 +14,6 @@ async function getClient() {
 }
 
 
-function reloadAsNecessary() {
-    window.ethereum.on('chainChanged', () => {window.location.reload()});
-    window.ethereum.on('accountsChanged', () => {window.location.reload()});
-}
-
-
 const provider = () => { 
     if (!window.ethereum) return false;
     else return new ethers.providers.Web3Provider(window.ethereum);
@@ -26,4 +23,4 @@ const provider = () => {
 const connected = (client) => {return (client !== defaultState)};
 
 
-module.exports = { defaultState, getClient, reloadAsNecessary, provider, connected }
+export default { defaultState, getClient, provider, connected };

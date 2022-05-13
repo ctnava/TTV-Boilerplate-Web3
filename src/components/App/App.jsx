@@ -11,7 +11,7 @@ function App(props) { diag(props.twitch, props.type, props.loading, props.visibl
         <h3>ctnava/TTV-Boilerplate@github</h3>
         <hr/>
 
-        {(!props.loading && props.visible) ? (<OAuth auth={props.auth} />) : "Loading..."}
+        {(!props.loading && props.visible) ? (<OAuth auth={props.auth} client={props.client} />) : "Loading..."}
     </div>);
 }
 

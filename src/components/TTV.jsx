@@ -1,5 +1,6 @@
 import diag from './diag';
 import oauth from './util/ttvOauth';
+import dapp from './util/web3';
 
 import './styles.css';
 import React, { useState, useEffect } from 'react';
@@ -7,9 +8,25 @@ import Config from './Config/Config';
 import App from "./App/App";
 
 
-function TTV(props) { diag(twitch, props.type);
+function TTV(props) { 
     // Basic States
     const [loading, setLoading] = useState(true);
+
+    // Web3
+    var web3Compatible = (dapp.provider() !== false); diag(twitch, props.type, web3Compatible);
+    const [client, setClient] = useState(dapp.defaultState);
+    useEffect(() => {
+        if (window.ethereum) {
+            window.ethereum.on('chainChanged', () => {window.location.reload()});
+            window.ethereum.on('accountsChanged', () => {window.location.reload()});
+
+            if (!dapp.connected() && auth.role === "broadcaster") new Promise (() => {
+                dapp.getClient()
+                .then(newClient => { setClient(newClient) })
+                .catch(e => { console.log(e) });
+            });
+        }
+    }, [client]);
 
     // TTV Extension, States, & Setup Effects
     var twitch = window.Twitch ? window.Twitch.ext : false;
@@ -46,6 +63,7 @@ function TTV(props) { diag(twitch, props.type);
     switch (props.type) {
         case "Config":
             return(<Config 
+                client={client}
                 type="Static"
                 twitch={twitch}
                 themeClass={themeClass}
@@ -55,6 +73,7 @@ function TTV(props) { diag(twitch, props.type);
 
         case "LiveConfig":
             return(<Config 
+                client={client}
                 type="Live"
                 twitch={twitch}
                 themeClass={themeClass}
@@ -64,6 +83,7 @@ function TTV(props) { diag(twitch, props.type);
 
         case "Mobile":
             return(<App 
+                client={client}
                 type={props.type}
                 twitch={twitch}
                 themeClass={themeClass}
@@ -74,6 +94,7 @@ function TTV(props) { diag(twitch, props.type);
 
         case "Panel":
             return(<App 
+                client={client}
                 type={props.type}
                 twitch={twitch}
                 themeClass={themeClass}
@@ -84,6 +105,7 @@ function TTV(props) { diag(twitch, props.type);
 
         case "VideoComponent":
             return(<App 
+                client={client}
                 type={props.type}
                 twitch={twitch}
                 themeClass={themeClass}
@@ -94,6 +116,7 @@ function TTV(props) { diag(twitch, props.type);
 
         case "VideoOverlay":
             return(<App 
+                client={client}
                 type={props.type}
                 twitch={twitch}
                 themeClass={themeClass}

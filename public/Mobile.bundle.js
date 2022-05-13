@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 4495:
+/***/ 1146:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -400,6 +400,71 @@ var moderator = function moderator(auth) {
     moderator: moderator
   }
 });
+// EXTERNAL MODULE: ./node_modules/@ethersproject/providers/lib.esm/web3-provider.js + 45 modules
+var web3_provider = __webpack_require__(6310);
+;// CONCATENATED MODULE: ./src/components/util/web3.js
+
+
+
+var defaultState = {
+  signer: undefined,
+  chainId: undefined
+};
+
+function getClient() {
+  return _getClient.apply(this, arguments);
+}
+
+function _getClient() {
+  _getClient = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+    var signer, chainId;
+    return regenerator_default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return provider().getSigner();
+
+          case 2:
+            signer = _context.sent;
+            _context.t0 = parseInt;
+            _context.next = 6;
+            return window.ethereum.request({
+              method: 'eth_chainId'
+            });
+
+          case 6:
+            _context.t1 = _context.sent;
+            chainId = (0, _context.t0)(_context.t1, 16);
+            return _context.abrupt("return", {
+              signer: signer,
+              chainId: chainId
+            });
+
+          case 9:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _getClient.apply(this, arguments);
+}
+
+var provider = function provider() {
+  if (!window.ethereum) return false;else return new web3_provider/* Web3Provider */.Q(window.ethereum);
+};
+
+var connected = function connected(client) {
+  return client !== defaultState;
+};
+
+/* harmony default export */ var web3 = ({
+  defaultState: defaultState,
+  getClient: getClient,
+  provider: provider,
+  connected: connected
+});
 // EXTERNAL MODULE: ./src/components/styles.css
 var styles = __webpack_require__(3300);
 // EXTERNAL MODULE: ./src/components/Config/diag.js
@@ -470,9 +535,11 @@ function RequestPanel(props) {
 
 
 
+
 function OAuth(props) {
   // console.log("displaying", props.auth)
-  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "TTV USER CREDENTIALS"), /*#__PURE__*/react.createElement("ul", null, /*#__PURE__*/react.createElement("li", null, "channelId: ", props.auth.channelId), /*#__PURE__*/react.createElement("li", null, "clientId: ", props.auth.clientId), /*#__PURE__*/react.createElement("li", null, "opaqueId: ", props.auth.opaqueId), /*#__PURE__*/react.createElement("li", null, "userId: ", ttvOauth.user.isIdentified(props.auth) ? props.auth.userId : "hidden"), /*#__PURE__*/react.createElement("li", null, "loginStatus: ", ttvOauth.user.isLoggedIn(props.auth).toString()), /*#__PURE__*/react.createElement("li", null, "role: ", props.auth.role)), /*#__PURE__*/react.createElement("hr", null), ttvOauth.hasRole.moderator(props.auth) && /*#__PURE__*/react.createElement("input", {
+  var web3Extended = window.ethereum !== null && window.ethereum !== undefined;
+  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "TTV USER CREDENTIALS"), /*#__PURE__*/react.createElement("ul", null, /*#__PURE__*/react.createElement("li", null, "Web3 Extended: ", web3Extended.toString()), /*#__PURE__*/react.createElement("li", null, "channelId: ", props.auth.channelId), /*#__PURE__*/react.createElement("li", null, "clientId: ", props.auth.clientId), /*#__PURE__*/react.createElement("li", null, "opaqueId: ", props.auth.opaqueId), /*#__PURE__*/react.createElement("li", null, "userId: ", ttvOauth.user.isIdentified(props.auth) ? props.auth.userId : "hidden"), /*#__PURE__*/react.createElement("li", null, "loginStatus: ", ttvOauth.user.isLoggedIn(props.auth).toString()), /*#__PURE__*/react.createElement("li", null, "role: ", props.auth.role)), /*#__PURE__*/react.createElement("hr", null), web3.connected() && web3Extended && /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "WEB3 USER CREDENTIALS"), /*#__PURE__*/react.createElement("ul", null, /*#__PURE__*/react.createElement("li", null, "chainId: ", props.client.chainId), /*#__PURE__*/react.createElement("li", null, "address: ", props.client.signer.address))), ttvOauth.hasRole.moderator(props.auth) && /*#__PURE__*/react.createElement("input", {
     value: "mod verification button",
     type: "button"
   }));
@@ -491,9 +558,11 @@ function Config(props) {
   return /*#__PURE__*/react.createElement("div", {
     className: "Ext ".concat(props.themeClass)
   }, /*#__PURE__*/react.createElement("h1", null, "Config - ", props.type), /*#__PURE__*/react.createElement("h3", null, "ctnava/TTV-Boilerplate@github"), /*#__PURE__*/react.createElement("hr", null), !props.loading ? props.type === "Live" ? ttvOauth.hasRole.moderator(props.auth) ? /*#__PURE__*/react.createElement(Config_RequestPanel, {
-    auth: props.auth
+    auth: props.auth,
+    client: props.client
   }) : /*#__PURE__*/react.createElement("p", null, "User not Moderator") : /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("p", null, "Configuration Not Required"), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement(util_OAuth, {
-    auth: props.auth
+    auth: props.auth,
+    client: props.client
   })) : /*#__PURE__*/react.createElement("p", null, "Loading..."));
 }
 
@@ -511,7 +580,8 @@ function App(props) {
   return /*#__PURE__*/react.createElement("div", {
     className: "Ext ".concat(props.themeClass)
   }, /*#__PURE__*/react.createElement("h1", null, "App - ", props.type), /*#__PURE__*/react.createElement("h3", null, "ctnava/TTV-Boilerplate@github"), /*#__PURE__*/react.createElement("hr", null), !props.loading && props.visible ? /*#__PURE__*/react.createElement(util_OAuth, {
-    auth: props.auth
+    auth: props.auth,
+    client: props.client
   }) : "Loading...");
 }
 
@@ -525,33 +595,59 @@ function App(props) {
 
 
 
-function TTV(props) {
-  diag_default()(twitch, props.type); // Basic States
 
+function TTV(props) {
+  // Basic States
   var _useState = (0,react.useState)(true),
       _useState2 = (0,slicedToArray/* default */.Z)(_useState, 2),
       loading = _useState2[0],
-      setLoading = _useState2[1]; // TTV Extension, States, & Setup Effects
+      setLoading = _useState2[1]; // Web3
 
+
+  var web3Compatible = web3.provider() !== false;
+  diag_default()(twitch, props.type, web3Compatible);
+
+  var _useState3 = (0,react.useState)(web3.defaultState),
+      _useState4 = (0,slicedToArray/* default */.Z)(_useState3, 2),
+      client = _useState4[0],
+      setClient = _useState4[1];
+
+  (0,react.useEffect)(function () {
+    if (window.ethereum) {
+      window.ethereum.on('chainChanged', function () {
+        window.location.reload();
+      });
+      window.ethereum.on('accountsChanged', function () {
+        window.location.reload();
+      });
+      if (!web3.connected() && auth.role === "broadcaster") new Promise(function () {
+        web3.getClient().then(function (newClient) {
+          setClient(newClient);
+        }).catch(function (e) {
+          console.log(e);
+        });
+      });
+    }
+  }, [client]); // TTV Extension, States, & Setup Effects
 
   var twitch = window.Twitch ? window.Twitch.ext : false;
 
-  var _useState3 = (0,react.useState)(ttvOauth.states.initial),
-      _useState4 = (0,slicedToArray/* default */.Z)(_useState3, 2),
-      auth = _useState4[0],
-      setAuth = _useState4[1];
-
-  var _useState5 = (0,react.useState)('light'),
+  var _useState5 = (0,react.useState)(ttvOauth.states.initial),
       _useState6 = (0,slicedToArray/* default */.Z)(_useState5, 2),
-      theme = _useState6[0],
-      setTheme = _useState6[1];
+      auth = _useState6[0],
+      setAuth = _useState6[1];
+
+  var _useState7 = (0,react.useState)('light'),
+      _useState8 = (0,slicedToArray/* default */.Z)(_useState7, 2),
+      theme = _useState8[0],
+      setTheme = _useState8[1];
 
   var themeClass = theme === 'light' ? 'Ext-light' : 'Ext-dark';
 
-  var _useState7 = (0,react.useState)(true),
-      _useState8 = (0,slicedToArray/* default */.Z)(_useState7, 2),
-      visible = _useState8[0],
-      setVisible = _useState8[1];
+  var _useState9 = (0,react.useState)(true),
+      _useState10 = (0,slicedToArray/* default */.Z)(_useState9, 2),
+      visible = _useState10[0],
+      setVisible = _useState10[1];
 
   (0,react.useEffect)(function () {
     if (twitch) {
@@ -584,6 +680,7 @@ function TTV(props) {
   switch (props.type) {
     case "Config":
       return /*#__PURE__*/react.createElement(Config_Config, {
+        client: client,
         type: "Static",
         twitch: twitch,
         themeClass: themeClass,
@@ -593,6 +690,7 @@ function TTV(props) {
 
     case "LiveConfig":
       return /*#__PURE__*/react.createElement(Config_Config, {
+        client: client,
         type: "Live",
         twitch: twitch,
         themeClass: themeClass,
@@ -602,6 +700,7 @@ function TTV(props) {
 
     case "Mobile":
       return /*#__PURE__*/react.createElement(App_App, {
+        client: client,
         type: props.type,
         twitch: twitch,
         themeClass: themeClass,
@@ -612,6 +711,7 @@ function TTV(props) {
 
     case "Panel":
       return /*#__PURE__*/react.createElement(App_App, {
+        client: client,
         type: props.type,
         twitch: twitch,
         themeClass: themeClass,
@@ -622,6 +722,7 @@ function TTV(props) {
 
     case "VideoComponent":
       return /*#__PURE__*/react.createElement(App_App, {
+        client: client,
         type: props.type,
         twitch: twitch,
         themeClass: themeClass,
@@ -632,6 +733,7 @@ function TTV(props) {
 
     case "VideoOverlay":
       return /*#__PURE__*/react.createElement(App_App, {
+        client: client,
         type: props.type,
         twitch: twitch,
         themeClass: themeClass,
@@ -812,15 +914,17 @@ module.exports = diag;
 /***/ 8178:
 /***/ (function(module) {
 
-var diag = function diag(twitch, type) {
+var diag = function diag(twitch, type, web3Compatible) {
   var twitch = window.Twitch ? window.Twitch.ext : null;
 
   if (twitch) {
     twitch.rig.log("TTV Detected");
     twitch.rig.log("Attempting to display ".concat(type));
+    twitch.rig.log("Web3 Compatible: ".concat(web3Compatible));
   } else console.log("TTV not Detected");
 
   console.log("Attempting to display ".concat(type));
+  console.log("Web3 Compatible: ".concat(web3Compatible));
 };
 
 module.exports = diag;
@@ -952,6 +1056,13 @@ if (true) {
        /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_styles_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
+/***/ }),
+
+/***/ 6601:
+/***/ (function() {
+
+/* (ignored) */
+
 /***/ })
 
 /******/ 	});
@@ -970,7 +1081,7 @@ if (true) {
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
-/******/ 			// no module.loaded needed
+/******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
@@ -984,6 +1095,9 @@ if (true) {
 /******/ 			module.error = e;
 /******/ 			throw e;
 /******/ 		}
+/******/ 	
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -999,6 +1113,11 @@ if (true) {
 /******/ 	__webpack_require__.i = [];
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/amd options */
+/******/ 	!function() {
+/******/ 		__webpack_require__.amdO = {};
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/chunk loaded */
 /******/ 	!function() {
 /******/ 		var deferred = [];
@@ -1073,7 +1192,7 @@ if (true) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "c040bcca2b0ca493d253"; }
+/******/ 		__webpack_require__.h = function() { return "1fce050679dd663b65bc"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -1147,6 +1266,15 @@ if (true) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/node module decorator */
+/******/ 	!function() {
+/******/ 		__webpack_require__.nmd = function(module) {
+/******/ 			module.paths = [];
+/******/ 			if (!module.children) module.children = [];
+/******/ 			return module;
 /******/ 		};
 /******/ 	}();
 /******/ 	
@@ -2118,7 +2246,7 @@ if (true) {
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [589], function() { return __webpack_require__(4495); })
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [243], function() { return __webpack_require__(1146); })
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
