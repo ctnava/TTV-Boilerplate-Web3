@@ -1,4 +1,4 @@
-(self["webpackChunkttv_boilerplate"] = self["webpackChunkttv_boilerplate"] || []).push([[589],{
+(self["webpackChunkweb3_ttv_boilerplate"] = self["webpackChunkweb3_ttv_boilerplate"] || []).push([[589],{
 
 /***/ 7757:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {

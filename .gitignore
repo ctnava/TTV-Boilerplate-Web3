@@ -16,8 +16,15 @@
 /.pnp.js
 
 
-# react
+# build
 /build 
+/dist
+
+
+# api
+/temp
+env.json
 
 # Twitch
-Project.json
+/Project.json
+public.rar

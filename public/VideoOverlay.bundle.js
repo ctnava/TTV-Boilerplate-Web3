@@ -1073,7 +1073,7 @@ if (true) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "a9a161ae3450bdded00f"; }
+/******/ 		__webpack_require__.h = function() { return "c040bcca2b0ca493d253"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -1096,7 +1096,7 @@ if (true) {
 /******/ 	/* webpack/runtime/load script */
 /******/ 	!function() {
 /******/ 		var inProgress = {};
-/******/ 		var dataWebpackPrefix = "ttv-boilerplate:";
+/******/ 		var dataWebpackPrefix = "web3-ttv-boilerplate:";
 /******/ 		// loadScript function to load a script via script tag
 /******/ 		__webpack_require__.l = function(url, done, key, chunkId) {
 /******/ 			if(inProgress[url]) { inProgress[url].push(done); return; }
@@ -1607,7 +1607,7 @@ if (true) {
 /******/ 			});
 /******/ 		}
 /******/ 		
-/******/ 		self["webpackHotUpdatettv_boilerplate"] = function(chunkId, moreModules, runtime) {
+/******/ 		self["webpackHotUpdateweb3_ttv_boilerplate"] = function(chunkId, moreModules, runtime) {
 /******/ 			for(var moduleId in moreModules) {
 /******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
 /******/ 					currentUpdate[moduleId] = moreModules[moduleId];
@@ -2103,7 +2103,7 @@ if (true) {
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkttv_boilerplate"] = self["webpackChunkttv_boilerplate"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunkweb3_ttv_boilerplate"] = self["webpackChunkweb3_ttv_boilerplate"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	}();
