@@ -1,5 +1,5 @@
 # general
-/certificates
+/*.pem
 /*.env
 /.DS_Store
 /*.code-workspace
