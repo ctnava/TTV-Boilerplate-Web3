@@ -1,26 +1,33 @@
+import diag from './diag';
+import oauth from '../util/ttvOauth';
+
 import React from 'react';
+import RequestPanel from './RequestPanel';
+import OAuth from '../util/OAuth';
 
 
-import OAuth from '../OAuth/OAuth';
-
-
-function Config(props) {
+function Config(props) { diag(props.twitch, props.type, props.loading, props.auth);
+    
     return(<div className={`Ext ${props.themeClass}`}>
-        
-        { loaded ? (<div>
+        <h1>Config - {props.type}</h1>
+        <h3>ctnava/TTV-Boilerplate@github</h3><hr/>
 
-            <h1>Config Component - {props.type}</h1>
-            
-            <hr/>
+        { !props.loading ? (
 
-            {props.type === "live" ? (
+            props.type === "Live" ? (
 
+                oauth.hasRole.moderator(props.auth) ? (
+                    
+                    <RequestPanel auth={props.auth} />
+                
+                ) : (<p>User not Moderator</p>)
+
+            ) : (<div>
+                <p>Configuration Not Required</p><hr/>
                 <OAuth auth={props.auth} />
+            </div>)
 
-            ) : (<p>Configuration Not Required</p>)}
-
-        </div>) : "Loading..."}
-
+        ) : (<p>Loading...</p>) }
     </div>);
 }
 

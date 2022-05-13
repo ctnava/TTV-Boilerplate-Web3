@@ -1,17 +1,17 @@
+import diag from './diag';
+
 import React from 'react';
+import OAuth from '../util/OAuth';
 
 
-function App(props) {
+function App(props) { diag(props.twitch, props.type, props.loading, props.visible);
+
     return(<div className={`Ext ${props.themeClass}`}>
-        {(!props.loading && props.visible) ? (<div>
-        
-            <h1>App Component</h1>
-            
-            <hr/>
+        <h1>App - {props.type}</h1>
+        <h3>ctnava/TTV-Boilerplate@github</h3>
+        <hr/>
 
-            <OAuth auth={props.auth} />
-        
-        </div>) : "Loading..."}
+        {(!props.loading && props.visible) ? (<OAuth auth={props.auth} />) : "Loading..."}
     </div>);
 }
 
