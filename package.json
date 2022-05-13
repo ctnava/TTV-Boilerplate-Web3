@@ -8,8 +8,7 @@
     "xfer": "node utils/transfer.js",
     "build": "webpack --mode=production",
     "start": "webpack-dev-server --mode=development",
-    "host": "webpack-dev-server --mode=development --env devrig",
-    "postinstall": "powershell ./bin/cert"
+    "host": "webpack-dev-server --mode=development --env devrig"
   },
   "author": "ctnava.github.io",
   "license": "MIT",
