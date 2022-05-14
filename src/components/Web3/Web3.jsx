@@ -11,11 +11,6 @@ function Web3(props) { diag(web3);
         if (window.ethereum) {
             window.ethereum.on('chainChanged', () => {window.location.reload()});
             window.ethereum.on('accountsChanged', () => {window.location.reload()});
-
-            if (web3.isEnabled === true && web3.userIsConnected() === false && props.auth.role === "broadcaster") 
-            web3.setup()
-            .then(newClient => {setClient(newClient)})
-            .catch(err => {web3.failure(err)});
         }
     }, [client]);
 
@@ -27,7 +22,7 @@ function Web3(props) { diag(web3);
     }
 
     return(<div>
-    
+
         <h3>WEB3 USER CREDENTIALS</h3>
         <ul>
             <li>Web3 Extended: {(web3.isEnabled).toString()}</li>

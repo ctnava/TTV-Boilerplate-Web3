@@ -16256,11 +16256,6 @@ function Web3(props) {
       window.ethereum.on('accountsChanged', function () {
         window.location.reload();
       });
-      if (web3Oauth.isEnabled === true && web3Oauth.userIsConnected() === false && props.auth.role === "broadcaster") web3Oauth.setup().then(function (newClient) {
-        setClient(newClient);
-      }).catch(function (err) {
-        web3Oauth.failure(err);
-      });
     }
   }, [client]);
 
@@ -24180,7 +24175,7 @@ module.exports = styleTagTransform;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "f27ad8364df6340d30fe"; }
+/******/ 		__webpack_require__.h = function() { return "744bb3123a1b9b4c0a05"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
