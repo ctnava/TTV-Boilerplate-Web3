@@ -2374,7 +2374,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 2617:
+/***/ 6774:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6082,7 +6082,7 @@ function _del() {
   endpoint: api_endpoint,
   req: axiosRequests
 });
-;// CONCATENATED MODULE: ./src/components/util/ttvOauth.js
+;// CONCATENATED MODULE: ./src/components/OAuth.jsx/ttvOauth.js
 
 
 var fail = "LOGIN_FAILURE";
@@ -6195,6 +6195,88 @@ var moderator = function moderator(auth) {
     moderator: moderator
   }
 });
+// EXTERNAL MODULE: ./src/components/styles.css
+var styles = __webpack_require__(3300);
+// EXTERNAL MODULE: ./src/components/Config/diag.js
+var Config_diag = __webpack_require__(3304);
+var Config_diag_default = /*#__PURE__*/__webpack_require__.n(Config_diag);
+;// CONCATENATED MODULE: ./src/components/Config/RequestPanel.jsx
+
+
+
+
+
+function RequestPanel(props) {
+  var _useState = (0,react.useState)(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      password = _useState2[0],
+      setPassword = _useState2[1];
+
+  var _useState3 = (0,react.useState)({
+    archive: []
+  }),
+      _useState4 = _slicedToArray(_useState3, 2),
+      reports = _useState4[0],
+      setReports = _useState4[1];
+
+  function handleChange(event) {
+    event.preventDefault();
+    setPassword(event.target.value);
+  }
+
+  function del(event) {
+    event.preventDefault();
+    var auth = {
+      token: password
+    };
+    var data = {
+      auth: auth
+    };
+    api.req.del("bad_actor", data, auth).then(function () {
+      api.req.get("bad_actor", props.auth).then(function (res) {
+        if (res.data) setReports(res.data);
+        setPassword("");
+      });
+    });
+  }
+
+  function get(event) {
+    event.preventDefault();
+    api.req.get("bad_actor", props.auth).then(function (res) {
+      if (res.data) setReports(res.data);
+    });
+  }
+
+  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("form", null, /*#__PURE__*/react.createElement("input", {
+    onChange: handleChange,
+    value: password,
+    placeholder: "password"
+  }), /*#__PURE__*/react.createElement("button", {
+    onClick: del
+  }, "Delete Reports")), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement("button", {
+    onClick: get
+  }, "Get Reports"), reports.archive.length > 0 && /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "Reports"), /*#__PURE__*/react.createElement("ul", null, reports.archive.map(function (report) {
+    return /*#__PURE__*/react.createElement("li", null, /*#__PURE__*/react.createElement("span", null, new Date(report.timestamp * 1000).toString(), " || ", report.reportType), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement("span", null, "Channel: ", report.auth.channelId, " || Offender: ", report.auth.userId), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement("span", null, "ClientId: ", report.auth.clientId), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement("span", null, "Token: ", JSON.stringify(decodeJwt(report.auth.token), null, 2)), /*#__PURE__*/react.createElement("br", null));
+  }))));
+}
+
+/* harmony default export */ var Config_RequestPanel = (RequestPanel);
+;// CONCATENATED MODULE: ./src/components/OAuth.jsx/OAuth.jsx
+
+
+
+function OAuth(props) {
+  // console.log("displaying", props.auth)
+  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "TTV USER CREDENTIALS"), /*#__PURE__*/react.createElement("ul", null, /*#__PURE__*/react.createElement("li", null, "channelId: ", props.auth.channelId), /*#__PURE__*/react.createElement("li", null, "clientId: ", props.auth.clientId), /*#__PURE__*/react.createElement("li", null, "opaqueId: ", props.auth.opaqueId), /*#__PURE__*/react.createElement("li", null, "userId: ", ttvOauth.user.isIdentified(props.auth) ? props.auth.userId : "hidden"), /*#__PURE__*/react.createElement("li", null, "loginStatus: ", ttvOauth.user.isLoggedIn(props.auth).toString()), /*#__PURE__*/react.createElement("li", null, "role: ", props.auth.role)), ttvOauth.hasRole.moderator(props.auth) && /*#__PURE__*/react.createElement("input", {
+    value: "mod verification button",
+    type: "button"
+  }));
+}
+
+/* harmony default export */ var OAuth_jsx_OAuth = (OAuth);
+// EXTERNAL MODULE: ./src/components/Web3/diag.js
+var Web3_diag = __webpack_require__(3667);
+var Web3_diag_default = /*#__PURE__*/__webpack_require__.n(Web3_diag);
 ;// CONCATENATED MODULE: ./node_modules/@ethersproject/logger/lib.esm/_version.js
 const version = "logger/5.6.0";
 //# sourceMappingURL=_version.js.map
@@ -6679,11 +6761,8 @@ class Description {
     }
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./node_modules/@ethersproject/providers/lib.esm/_version.js
-const lib_esm_version_version = "providers/5.6.5";
-//# sourceMappingURL=_version.js.map
 ;// CONCATENATED MODULE: ./node_modules/@ethersproject/abstract-signer/lib.esm/_version.js
-const abstract_signer_lib_esm_version_version = "abstract-signer/5.6.0";
+const lib_esm_version_version = "abstract-signer/5.6.0";
 //# sourceMappingURL=_version.js.map
 ;// CONCATENATED MODULE: ./node_modules/@ethersproject/abstract-signer/lib.esm/index.js
 
@@ -6699,7 +6778,7 @@ var lib_esm_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
 
 
 
-const lib_esm_logger = new lib_esm_Logger(abstract_signer_lib_esm_version_version);
+const lib_esm_logger = new lib_esm_Logger(lib_esm_version_version);
 const allowedTransactionKeys = [
     "accessList", "ccipReadEnabled", "chainId", "customData", "data", "from", "gasLimit", "gasPrice", "maxFeePerGas", "maxPriorityFeePerGas", "nonce", "to", "type", "value"
 ];
@@ -12139,6 +12218,9 @@ function poll(func, options) {
     });
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./node_modules/@ethersproject/providers/lib.esm/_version.js
+const providers_lib_esm_version_version = "providers/5.6.5";
+//# sourceMappingURL=_version.js.map
 ;// CONCATENATED MODULE: ./node_modules/@ethersproject/abstract-provider/lib.esm/_version.js
 const abstract_provider_lib_esm_version_version = "abstract-provider/5.6.0";
 //# sourceMappingURL=_version.js.map
@@ -12897,7 +12979,7 @@ const AddressZero = "0x0000000000000000000000000000000000000000";
 
 
 
-const formatter_logger = new lib_esm_Logger(lib_esm_version_version);
+const formatter_logger = new lib_esm_Logger(providers_lib_esm_version_version);
 class Formatter {
     constructor() {
         formatter_logger.checkNew(new.target, Formatter);
@@ -13356,7 +13438,7 @@ var base_provider_awaiter = (undefined && undefined.__awaiter) || function (this
 
 
 
-const base_provider_logger = new lib_esm_Logger(lib_esm_version_version);
+const base_provider_logger = new lib_esm_Logger(providers_lib_esm_version_version);
 
 const MAX_CCIP_REDIRECTS = 10;
 //////////////////////////////
@@ -15341,7 +15423,7 @@ var json_rpc_provider_awaiter = (undefined && undefined.__awaiter) || function (
 
 
 
-const json_rpc_provider_logger = new lib_esm_Logger(lib_esm_version_version);
+const json_rpc_provider_logger = new lib_esm_Logger(providers_lib_esm_version_version);
 
 const errorGas = ["call", "estimateGas"];
 function spelunk(value) {
@@ -15944,7 +16026,7 @@ class JsonRpcProvider extends BaseProvider {
 
 
 
-const web3_provider_logger = new lib_esm_Logger(lib_esm_version_version);
+const web3_provider_logger = new lib_esm_Logger(providers_lib_esm_version_version);
 
 let _nextId = 1;
 function buildWeb3LegacyFetcher(provider, sendFunc) {
@@ -16072,151 +16154,135 @@ class Web3Provider extends JsonRpcProvider {
     }
 }
 //# sourceMappingURL=web3-provider.js.map
-;// CONCATENATED MODULE: ./src/components/util/web3.js
+;// CONCATENATED MODULE: ./src/components/Web3/web3Oauth.js
 
 
 
-var defaultState = {
-  signer: undefined,
-  chainId: undefined
+var defaultProvider = new JsonRpcProvider("https://speedy-nodes-nyc.moralis.io/af4a3703965f1171d0758c10/eth/mainnet");
+var web3Oauth_states = {
+  initial: {
+    provider: defaultProvider,
+    signer: undefined,
+    address: undefined,
+    chainId: undefined
+  }
 };
 
-function getClient() {
-  return _getClient.apply(this, arguments);
+function setup() {
+  return _setup.apply(this, arguments);
 }
 
-function _getClient() {
-  _getClient = _asyncToGenerator( /*#__PURE__*/regenerator_default().mark(function _callee() {
-    var signer, chainId;
+function _setup() {
+  _setup = _asyncToGenerator( /*#__PURE__*/regenerator_default().mark(function _callee() {
+    var provider, signer, address, chainId;
     return regenerator_default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return provider().getSigner();
+            provider = new Web3Provider(window.ethereum);
+            _context.next = 3;
+            return provider.getSigner();
 
-          case 2:
+          case 3:
             signer = _context.sent;
-            _context.t0 = parseInt;
             _context.next = 6;
-            return window.ethereum.request({
-              method: 'eth_chainId'
+            return provider.request({
+              method: 'eth_requestAccounts'
             });
 
           case 6:
+            address = _context.sent[0];
+            _context.t0 = parseInt;
+            _context.next = 10;
+            return provider.request({
+              method: 'eth_chainId'
+            });
+
+          case 10:
             _context.t1 = _context.sent;
             chainId = (0, _context.t0)(_context.t1, 16);
             return _context.abrupt("return", {
+              provider: provider,
               signer: signer,
+              address: address,
               chainId: chainId
             });
 
-          case 9:
+          case 13:
           case "end":
             return _context.stop();
         }
       }
     }, _callee);
   }));
-  return _getClient.apply(this, arguments);
+  return _setup.apply(this, arguments);
 }
 
-var provider = function provider() {
-  if (!window.ethereum) return false;else return new Web3Provider(window.ethereum);
+var web3Oauth_failure = function failure(err) {
+  console.log("ERROR: @Web3 Setup: ", err);
 };
 
-var connected = function connected(client) {
-  return client !== defaultState;
+var userIsConnected = function userIsConnected(client) {
+  return client !== web3Oauth_states.initial;
 };
 
-/* harmony default export */ var web3 = ({
-  defaultState: defaultState,
-  getClient: getClient,
-  provider: provider,
-  connected: connected
+var isEnabled = window.ethereum !== undefined;
+/* harmony default export */ var web3Oauth = ({
+  states: web3Oauth_states,
+  setup: setup,
+  failure: web3Oauth_failure,
+  isEnabled: isEnabled,
+  userIsConnected: userIsConnected
 });
-// EXTERNAL MODULE: ./src/components/styles.css
-var styles = __webpack_require__(3300);
-// EXTERNAL MODULE: ./src/components/Config/diag.js
-var Config_diag = __webpack_require__(3304);
-var Config_diag_default = /*#__PURE__*/__webpack_require__.n(Config_diag);
-;// CONCATENATED MODULE: ./src/components/Config/RequestPanel.jsx
+;// CONCATENATED MODULE: ./src/components/Web3/Web3.jsx
 
 
 
 
 
-function RequestPanel(props) {
-  var _useState = (0,react.useState)(""),
+function Web3(props) {
+  Web3_diag_default()(web3Oauth); // Web3
+
+  var _useState = (0,react.useState)(web3Oauth.states.initial),
       _useState2 = _slicedToArray(_useState, 2),
-      password = _useState2[0],
-      setPassword = _useState2[1];
+      client = _useState2[0],
+      setClient = _useState2[1];
 
-  var _useState3 = (0,react.useState)({
-    archive: []
-  }),
-      _useState4 = _slicedToArray(_useState3, 2),
-      reports = _useState4[0],
-      setReports = _useState4[1];
-
-  function handleChange(event) {
-    event.preventDefault();
-    setPassword(event.target.value);
-  }
-
-  function del(event) {
-    event.preventDefault();
-    var auth = {
-      token: password
-    };
-    var data = {
-      auth: auth
-    };
-    api.req.del("bad_actor", data, auth).then(function () {
-      api.req.get("bad_actor", props.auth).then(function (res) {
-        if (res.data) setReports(res.data);
-        setPassword("");
+  (0,react.useEffect)(function () {
+    if (window.ethereum) {
+      window.ethereum.on('chainChanged', function () {
+        window.location.reload();
       });
-    });
-  }
+      window.ethereum.on('accountsChanged', function () {
+        window.location.reload();
+      });
+      if (web3Oauth.isEnabled === true && web3Oauth.userIsConnected() === false && props.auth.role === "broadcaster") web3Oauth.setup().then(function (newClient) {
+        setClient(newClient);
+      }).catch(function (err) {
+        web3Oauth.failure(err);
+      });
+    }
+  }, [client]);
 
-  function get(event) {
+  function connectWeb3(event) {
     event.preventDefault();
-    api.req.get("bad_actor", props.auth).then(function (res) {
-      if (res.data) setReports(res.data);
+    web3Oauth.setup().then(function (newClient) {
+      setClient(newClient);
+    }).catch(function (err) {
+      web3Oauth.failure(err);
     });
   }
 
-  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("form", null, /*#__PURE__*/react.createElement("input", {
-    onChange: handleChange,
-    value: password,
-    placeholder: "password"
-  }), /*#__PURE__*/react.createElement("button", {
-    onClick: del
-  }, "Delete Reports")), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement("button", {
-    onClick: get
-  }, "Get Reports"), reports.archive.length > 0 && /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "Reports"), /*#__PURE__*/react.createElement("ul", null, reports.archive.map(function (report) {
-    return /*#__PURE__*/react.createElement("li", null, /*#__PURE__*/react.createElement("span", null, new Date(report.timestamp * 1000).toString(), " || ", report.reportType), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement("span", null, "Channel: ", report.auth.channelId, " || Offender: ", report.auth.userId), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement("span", null, "ClientId: ", report.auth.clientId), /*#__PURE__*/react.createElement("br", null), /*#__PURE__*/react.createElement("span", null, "Token: ", JSON.stringify(decodeJwt(report.auth.token), null, 2)), /*#__PURE__*/react.createElement("br", null));
-  }))));
-}
-
-/* harmony default export */ var Config_RequestPanel = (RequestPanel);
-;// CONCATENATED MODULE: ./src/components/util/OAuth.jsx
-
-
-
-
-function OAuth(props) {
-  // console.log("displaying", props.auth)
-  var web3Extended = window.ethereum !== null && window.ethereum !== undefined;
-  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "TTV USER CREDENTIALS"), /*#__PURE__*/react.createElement("ul", null, /*#__PURE__*/react.createElement("li", null, "Web3 Extended: ", web3Extended.toString()), /*#__PURE__*/react.createElement("li", null, "channelId: ", props.auth.channelId), /*#__PURE__*/react.createElement("li", null, "clientId: ", props.auth.clientId), /*#__PURE__*/react.createElement("li", null, "opaqueId: ", props.auth.opaqueId), /*#__PURE__*/react.createElement("li", null, "userId: ", ttvOauth.user.isIdentified(props.auth) ? props.auth.userId : "hidden"), /*#__PURE__*/react.createElement("li", null, "loginStatus: ", ttvOauth.user.isLoggedIn(props.auth).toString()), /*#__PURE__*/react.createElement("li", null, "role: ", props.auth.role)), /*#__PURE__*/react.createElement("hr", null), web3.connected() && web3Extended && /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "WEB3 USER CREDENTIALS"), /*#__PURE__*/react.createElement("ul", null, /*#__PURE__*/react.createElement("li", null, "chainId: ", props.client.chainId), /*#__PURE__*/react.createElement("li", null, "address: ", props.client.signer.address))), ttvOauth.hasRole.moderator(props.auth) && /*#__PURE__*/react.createElement("input", {
-    value: "mod verification button",
-    type: "button"
+  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("h3", null, "WEB3 USER CREDENTIALS"), /*#__PURE__*/react.createElement("ul", null, /*#__PURE__*/react.createElement("li", null, "Web3 Extended: ", web3Oauth.isEnabled.toString()), web3Oauth.userIsConnected(client) && /*#__PURE__*/react.createElement("li", null, "address: ", props.client.address), web3Oauth.userIsConnected(client) && /*#__PURE__*/react.createElement("li", null, "chainId: ", props.client.chainId)), web3Oauth.isEnabled === true && !web3Oauth.userIsConnected(props.client) && props.auth.role === "broadcaster" && /*#__PURE__*/react.createElement("input", {
+    onClick: connectWeb3,
+    type: "button",
+    value: "Connect Web3 Wallet"
   }));
 }
 
-/* harmony default export */ var util_OAuth = (OAuth);
+/* harmony default export */ var Web3_Web3 = (Web3);
 ;// CONCATENATED MODULE: ./src/components/Config/Config.jsx
+
 
 
 
@@ -16227,12 +16293,12 @@ function Config(props) {
   Config_diag_default()(props.twitch, props.type, props.loading, props.auth);
   return /*#__PURE__*/react.createElement("div", {
     className: "Ext ".concat(props.themeClass)
-  }, /*#__PURE__*/react.createElement("h1", null, "Config - ", props.type), /*#__PURE__*/react.createElement("h3", null, "ctnava/TTV-Boilerplate@github"), /*#__PURE__*/react.createElement("hr", null), !props.loading ? props.type === "Live" ? ttvOauth.hasRole.moderator(props.auth) ? /*#__PURE__*/react.createElement(Config_RequestPanel, {
-    auth: props.auth,
-    client: props.client
-  }) : /*#__PURE__*/react.createElement("p", null, "User not Moderator") : /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("p", null, "Configuration Not Required"), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement(util_OAuth, {
-    auth: props.auth,
-    client: props.client
+  }, /*#__PURE__*/react.createElement("h1", null, "Config - ", props.type), /*#__PURE__*/react.createElement("hr", null), !props.loading ? props.type === "Live" ? ttvOauth.hasRole.moderator(props.auth) ? /*#__PURE__*/react.createElement(Config_RequestPanel, {
+    auth: props.auth
+  }) : /*#__PURE__*/react.createElement("p", null, "User not Moderator") : /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("p", null, "Configuration Not Required"), /*#__PURE__*/react.createElement(OAuth_jsx_OAuth, {
+    auth: props.auth
+  }), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement(Web3_Web3, {
+    auth: props.auth
   })) : /*#__PURE__*/react.createElement("p", null, "Loading..."));
 }
 
@@ -16245,14 +16311,16 @@ var App_diag_default = /*#__PURE__*/__webpack_require__.n(App_diag);
 
 
 
+
 function App(props) {
   App_diag_default()(props.twitch, props.type, props.loading, props.visible);
   return /*#__PURE__*/react.createElement("div", {
     className: "Ext ".concat(props.themeClass)
-  }, /*#__PURE__*/react.createElement("h1", null, "App - ", props.type), /*#__PURE__*/react.createElement("h3", null, "ctnava/TTV-Boilerplate@github"), /*#__PURE__*/react.createElement("hr", null), !props.loading && props.visible ? /*#__PURE__*/react.createElement(util_OAuth, {
-    auth: props.auth,
-    client: props.client
-  }) : "Loading...");
+  }, /*#__PURE__*/react.createElement("h1", null, "App - ", props.type), /*#__PURE__*/react.createElement("hr", null), !props.loading && props.visible ? /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement(OAuth_jsx_OAuth, {
+    auth: props.auth
+  }), /*#__PURE__*/react.createElement("hr", null), /*#__PURE__*/react.createElement(Web3_Web3, {
+    auth: props.auth
+  })) : "Loading...");
 }
 
 /* harmony default export */ var App_App = (App);
@@ -16265,59 +16333,33 @@ function App(props) {
 
 
 
-
 function TTV(props) {
-  // Basic States
+  diag_default()(twitch, props.type); // Basic States
+
   var _useState = (0,react.useState)(true),
       _useState2 = _slicedToArray(_useState, 2),
       loading = _useState2[0],
-      setLoading = _useState2[1]; // Web3
+      setLoading = _useState2[1]; // TTV Extension, States, & Setup Effects
 
-
-  var web3Compatible = web3.provider() !== false;
-  diag_default()(twitch, props.type, web3Compatible);
-
-  var _useState3 = (0,react.useState)(web3.defaultState),
-      _useState4 = _slicedToArray(_useState3, 2),
-      client = _useState4[0],
-      setClient = _useState4[1];
-
-  (0,react.useEffect)(function () {
-    if (window.ethereum) {
-      window.ethereum.on('chainChanged', function () {
-        window.location.reload();
-      });
-      window.ethereum.on('accountsChanged', function () {
-        window.location.reload();
-      });
-      if (!web3.connected() && auth.role === "broadcaster") new Promise(function () {
-        web3.getClient().then(function (newClient) {
-          setClient(newClient);
-        }).catch(function (e) {
-          console.log(e);
-        });
-      });
-    }
-  }, [client]); // TTV Extension, States, & Setup Effects
 
   var twitch = window.Twitch ? window.Twitch.ext : false;
 
-  var _useState5 = (0,react.useState)(ttvOauth.states.initial),
-      _useState6 = _slicedToArray(_useState5, 2),
-      auth = _useState6[0],
-      setAuth = _useState6[1];
+  var _useState3 = (0,react.useState)(ttvOauth.states.initial),
+      _useState4 = _slicedToArray(_useState3, 2),
+      auth = _useState4[0],
+      setAuth = _useState4[1];
 
-  var _useState7 = (0,react.useState)('light'),
-      _useState8 = _slicedToArray(_useState7, 2),
-      theme = _useState8[0],
-      setTheme = _useState8[1];
+  var _useState5 = (0,react.useState)('light'),
+      _useState6 = _slicedToArray(_useState5, 2),
+      theme = _useState6[0],
+      setTheme = _useState6[1];
 
   var themeClass = theme === 'light' ? 'Ext-light' : 'Ext-dark';
 
-  var _useState9 = (0,react.useState)(true),
-      _useState10 = _slicedToArray(_useState9, 2),
-      visible = _useState10[0],
-      setVisible = _useState10[1];
+  var _useState7 = (0,react.useState)(true),
+      _useState8 = _slicedToArray(_useState7, 2),
+      visible = _useState8[0],
+      setVisible = _useState8[1];
 
   (0,react.useEffect)(function () {
     if (twitch) {
@@ -16350,7 +16392,6 @@ function TTV(props) {
   switch (props.type) {
     case "Config":
       return /*#__PURE__*/react.createElement(Config_Config, {
-        client: client,
         type: "Static",
         twitch: twitch,
         themeClass: themeClass,
@@ -16360,7 +16401,6 @@ function TTV(props) {
 
     case "LiveConfig":
       return /*#__PURE__*/react.createElement(Config_Config, {
-        client: client,
         type: "Live",
         twitch: twitch,
         themeClass: themeClass,
@@ -16370,7 +16410,6 @@ function TTV(props) {
 
     case "Mobile":
       return /*#__PURE__*/react.createElement(App_App, {
-        client: client,
         type: props.type,
         twitch: twitch,
         themeClass: themeClass,
@@ -16381,7 +16420,6 @@ function TTV(props) {
 
     case "Panel":
       return /*#__PURE__*/react.createElement(App_App, {
-        client: client,
         type: props.type,
         twitch: twitch,
         themeClass: themeClass,
@@ -16392,7 +16430,6 @@ function TTV(props) {
 
     case "VideoComponent":
       return /*#__PURE__*/react.createElement(App_App, {
-        client: client,
         type: props.type,
         twitch: twitch,
         themeClass: themeClass,
@@ -16403,7 +16440,6 @@ function TTV(props) {
 
     case "VideoOverlay":
       return /*#__PURE__*/react.createElement(App_App, {
-        client: client,
         type: props.type,
         twitch: twitch,
         themeClass: themeClass,
@@ -16581,20 +16617,30 @@ module.exports = diag;
 
 /***/ }),
 
+/***/ 3667:
+/***/ (function(module) {
+
+function diag(web3) {
+  window.Twitch.ext.rig.log("Web3 Compatible: ".concat(web3.isEnabled));
+  console.log("Web3 Compatible: ".concat(web3.isEnabled));
+}
+
+module.exports = diag;
+
+/***/ }),
+
 /***/ 8178:
 /***/ (function(module) {
 
-var diag = function diag(twitch, type, web3Compatible) {
+var diag = function diag(twitch, type) {
   var twitch = window.Twitch ? window.Twitch.ext : null;
 
   if (twitch) {
     twitch.rig.log("TTV Detected");
     twitch.rig.log("Attempting to display ".concat(type));
-    twitch.rig.log("Web3 Compatible: ".concat(web3Compatible));
   } else console.log("TTV not Detected");
 
   console.log("Attempting to display ".concat(type));
-  console.log("Web3 Compatible: ".concat(web3Compatible));
 };
 
 module.exports = diag;
@@ -24134,7 +24180,7 @@ module.exports = styleTagTransform;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-/******/ 		__webpack_require__.h = function() { return "b757d3b9b9ab6c24b7a5"; }
+/******/ 		__webpack_require__.h = function() { return "f27ad8364df6340d30fe"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -25159,7 +25205,7 @@ module.exports = styleTagTransform;
 /******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__(2617);
+/******/ 	var __webpack_exports__ = __webpack_require__(6774);
 /******/ 	
 /******/ })()
 ;
